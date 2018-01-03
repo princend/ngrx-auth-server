@@ -35,6 +35,21 @@ router.post('/authenticate', (req, res) => {
 })
 
 
+/* get user from token */
+router.post('/currentUser', (req, res) => {
+  var token = req.body.token;
+  if (token) {
+    jwt.verify(token, SECRET, function (err, decoded) {
+      if (err) {
+        res.status(400).send({ success: false})
+      } else {
+        res.send({success: true, payload: decoded.username});
+      }
+    })
+  } else {
+    res.status(400).send({ success: false, payload: 'no token'});
+  }
+})
 
 
 module.exports = router;
