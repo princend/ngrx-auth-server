@@ -22,8 +22,6 @@ router.post('/authenticate', (req, res) => {
 
   userService.authenticate(username, password)
              .then((result)  => {
-               console.log('got userservice check result', result);
-               console.log('use secret', SECRET);
                if (result) {
                  let token = jwt.sign({ username: username}, SECRET, {'expiresIn': '1h'} );
                  res.json({ success: true, payload: token});
