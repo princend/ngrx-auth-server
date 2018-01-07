@@ -1,6 +1,6 @@
 //
 //
-// File name : users.js
+// File name : users.service.js
 // Created by: Jerry Hsieh @ 2018-01-03
 //
 // Copyright (C) 2017 by Jerry Hsieh. All rights reserved
