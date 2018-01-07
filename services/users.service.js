@@ -16,9 +16,7 @@ service.authenticate = function(username, password) {
     username: 'jerry',
     password: 'jerry'
   }
-  
   return new Promise((resolve, reject) => {
-
     // should check database
     if (username === user.username && password === user.password) {
       resolve(true);            // user found

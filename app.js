@@ -12,6 +12,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var expressJwt = require('express-jwt');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,8 +36,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.options('*', cors());
 
-app.use('/', index);
-app.use('/api/users', users);
+
+// guard memeber area
+
+app.use('/api',expressJwt({secret: users.SECRET})
+   .unless({
+     path: [
+       '/api/users/authenticate'
+     ]
+   }));
+
+
+//app.use('/', index);
+app.use('/api/users', users.router);
 app.use('/api/reports', reports);
 
 // catch 404 and forward to error handler
