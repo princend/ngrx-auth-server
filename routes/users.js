@@ -24,9 +24,9 @@ router.post('/authenticate', (req, res) => {
              .then((result)  => {
                if (result) {
                  let token = jwt.sign({ username: username}, SECRET, {'expiresIn': '1h'} );
-                 res.json({ success: true, payload: token});
+                 res.json({ ok: true, payload: token});
                } else {
-                 res.json({ success: false, payload: 'please check username and password'});
+                 res.json({ ok: false, payload: 'please check username and password'});
                }
              })
              .catch(err => {
@@ -41,13 +41,13 @@ router.post('/currentUser', (req, res) => {
   if (token) {
     jwt.verify(token, SECRET, function (err, decoded) {
       if (err) {
-        res.status(400).send({ success: false})
+        res.status(400).send({ ok: false})
       } else {
-        res.send({success: true, payload: decoded.username});
+        res.send({ok: true, payload: decoded.username});
       }
     })
   } else {
-    res.status(400).send({ success: false, payload: 'no token'});
+    res.status(400).send({ ok: false, payload: 'no token'});
   }
 })
 
