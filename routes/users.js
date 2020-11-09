@@ -52,4 +52,4 @@ router.post('/currentUser', (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = { router: router, SECRET: SECRET };

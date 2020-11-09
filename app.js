@@ -12,9 +12,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var expressJwt = require('express-jwt');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var reports = require('./routes/reports');
 
 var app = express();
 
@@ -32,20 +34,39 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // middleware
 app.use(cors());
-app.options('*', cors());
 
-app.use('/', index);
-app.use('/api/users', users);
+const corsOptions = {
+  origin: "*",
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
+
+// guard memeber area
+
+app.use('/api', expressJwt({ secret: users.SECRET })
+  .unless({
+    path: [
+      '/api/users/authenticate'
+    ]
+  }));
+
+
+//app.use('/', index);
+app.use('/api/users', users.router);
+app.use('/api/reports', reports);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

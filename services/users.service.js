@@ -1,6 +1,6 @@
 //
 //
-// File name : users.js
+// File name : users.service.js
 // Created by: Jerry Hsieh @ 2018-01-03
 //
 // Copyright (C) 2017 by Jerry Hsieh. All rights reserved
@@ -16,9 +16,7 @@ service.authenticate = function(username, password) {
     username: 'admin',
     password: 'admin1234'
   }
-  
   return new Promise((resolve, reject) => {
-
     // should check database
     if (username === user.username && password === user.password) {
       resolve(true);            // user found
