@@ -13,8 +13,8 @@ service.authenticate = function(username, password) {
 
   // mockup user
   let user = {
-    username: 'jerry',
-    password: 'jerry'
+    username: 'admin',
+    password: 'admin1234'
   }
   return new Promise((resolve, reject) => {
     // should check database
