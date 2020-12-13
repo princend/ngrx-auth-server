@@ -24,5 +24,15 @@ router.get('/', (req, res) =>  {
                })
 })
 
+router.post('/addReport', (req, res) => {
+  reportService.addReport(req)
+  .then(result => {
+    res.json({ success: true, payload: result});
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
+
 
 module.exports = router;

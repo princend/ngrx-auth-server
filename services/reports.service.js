@@ -12,7 +12,13 @@ service.getReports = function() {
   return new Promise((resolve, reject) => {
     resolve(reports);
   })
-  
+}
+
+service.addReport = function(req) {
+  return new Promise((resolve, reject) => {
+    reports.push(req.body);
+    resolve(req.body);
+  })
 }
 
 
