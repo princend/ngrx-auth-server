@@ -27,8 +27,15 @@ service.removeReport = function (req) {
   return new Promise((resolve, reject) => {
     const id = req.query.id;
     const reportIndex = reports.findIndex(e => e.id == id);
-    reports.splice(reportIndex,1)
+    reports.splice(reportIndex, 1)
     resolve(id);
+  })
+}
+
+service.removeAll = function (req) {
+  return new Promise((resolve, reject) => {
+    reports.splice(0,reports.length);
+    resolve(reports);
   })
 }
 
