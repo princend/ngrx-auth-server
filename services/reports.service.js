@@ -6,21 +6,31 @@
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
 
+const { query } = require("express");
+
 let service = {};
 
-service.getReports = function() {
+service.getReports = function () {
   return new Promise((resolve, reject) => {
     resolve(reports);
   })
 }
 
-service.addReport = function(req) {
+service.addReport = function (req) {
   return new Promise((resolve, reject) => {
     reports.push(req.body);
     resolve(req.body);
   })
 }
 
+service.removeReport = function (req) {
+  return new Promise((resolve, reject) => {
+    const id = req.query.id;
+    const reportIndex = reports.findIndex(e => e.id == id);
+    reports.splice(reportIndex,1)
+    resolve(id);
+  })
+}
 
 module.exports = service;
 
@@ -45,7 +55,7 @@ const reports = [
     image: "https://i.imgur.com/SBedSdj.jpg",
     title: "有的人，怎地所說的一週會不同？",
     report: "現在已經過了人生的四分之一，現在已經過了人生的四分之一，如果是真的，ㄟ那就結婚吧我沒有妳會死，前世的五百次回眸，請允許我，我們一輩子都來談戀愛吧！Lytro，台大創聯會，開推土機衝火場，慣竊黑吃黑，在春風裏失去一代散文大師，〈SBL〉生涯首發傳單曾文鼎喊新鮮。太好了，咖啡排骨，叫化雞，舒筋软结，女的意犹未尽，不好意思，利咽，長什麼樣子也忘了~~~~~~好像還有兩個人……但也忘了是誰了~~~~~上了一課，白馬-東方之星-數位全釉拋石英磚水餃....可怕的水餃....禮拜一又要做整天的水餃.....一直持續到禮拜三的比賽為止....不！感謝上師，感謝上師，感謝上師，感謝上師，萬能的師父。我允許你走進我的世界，女孩富著養，睡你的老公，工作，容易；生活，年輕的時候，愛情，我希望有一天能用鼠標雙擊我的錢包，男孩窮著養，錢不是問題，錢對你來說真的就那麼重要嗎？同學一整學期沒有上過任何課，同學一整學期沒有上過任何課，請他的交通大學資訊工程系朋友幫忙他，請他的交通大學資訊工程系朋友幫忙他，請他的交通大學資訊工程系朋友幫忙他，同學一整學期沒有上過任何課，在學期末之後，但從頭到尾那些網頁也不是他自己寫的，…"
-  }, 
+  },
   {
     id: 4,
     master: "金毛獅王",

@@ -35,4 +35,14 @@ router.post('/addReport', (req, res) => {
 })
 
 
+router.delete('/removeReport', (req, res) => {
+  reportService.removeReport(req)
+  .then(result => {
+    res.json({ success: true, payload: result});
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
+
 module.exports = router;
